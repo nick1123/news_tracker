@@ -2,7 +2,7 @@ class KeywordsController < ApplicationController
   def index
     @title = "Keywords"
     ordering = "occurences DESC, phrase ASC"
-    min_occurences = 2
+    min_occurences = 1
     @week = {}
     @week["Last 24 Hours"] = Keyword.where(created_at: (24.hours.ago..Time.now)).where("occurences >= ?", min_occurences).order(ordering)
     (1..6).each do |days_back|

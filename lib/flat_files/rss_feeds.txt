@@ -1,1 +1,5 @@
 http://rss.cnn.com/rss/cnn_topstories.rss
+http://www.salon.com/feed/rss/
+https://www.lewrockwell.com/feed/
+http://www.dailymail.co.uk/articles.rss
+http://www.huffingtonpost.com/feeds/news.xml
