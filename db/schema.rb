@@ -17,10 +17,10 @@ ActiveRecord::Schema.define(version: 20141015023049) do
   enable_extension "plpgsql"
 
   create_table "keywords", force: true do |t|
-    t.string   "phrase"
-    t.integer  "occurences"
-    t.date     "on_date"
+    t.string   "phrase",                 null: false
     t.integer  "word_count"
+    t.integer  "occurences", default: 1
+    t.date     "on_date"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

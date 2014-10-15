@@ -4,6 +4,9 @@ require 'feedjira'
 desc "Fetch news titles from rss feeds"
 task :fetch_news => :environment do
   Post.delete_all
+  Keyword.delete_all
+
+
   sleep_seconds = 1_200
 
   while true do
@@ -21,6 +24,9 @@ task :fetch_news => :environment do
       end
     end
 
+puts ""
+
+    Keyword.order("occurences DESC").limit(10).each {|k| puts "#{k.occurences}\t#{k.phrase}"}
     puts "Sleeping for #{sleep_seconds} seconds"
     sleep(sleep_seconds)
   end
@@ -29,7 +35,7 @@ end
 def process_rss_feed(url)
   feed = Feedjira::Feed.fetch_and_parse(url)
 
-  feed.entries[0..3].each do |entry|
+  feed.entries.each do |entry|
     add_post(entry.title, entry.url)
   end
 end
@@ -47,8 +53,19 @@ def add_post(title, url)
   )
 
   puts "  Added #{title}"
-  keywords = extract_keywords(title)
-  puts keywords.inspect
+  phrases = extract_keywords(title)
+
+  phrases.each do |phrase|
+    keyword = Keyword.where(phrase: phrase).where(on_date: Date.current).first
+    if keyword.present?
+      keyword.occurences += 1
+      keyword.save
+    else
+      Keyword.create(phrase: phrase)
+    end
+  end
+
+  puts phrases.inspect
 
   puts ""
 end
