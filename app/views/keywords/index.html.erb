@@ -1,0 +1,16 @@
+<% @week.each do |day_display, keywords| %>
+
+  <h3><%= day_display %> (<%= keywords.size %> Total)</h3>
+  <table>
+    <tr>
+      <td>Keyword</td>
+      <td>Occurences</td>
+    </tr>
+    <% keywords.each do |keyword| %>
+      <tr>
+        <td><%= keyword.phrase %></td>
+        <td><%= keyword.occurences %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>

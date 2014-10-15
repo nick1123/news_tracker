@@ -3,9 +3,6 @@ require 'feedjira'
 
 desc "Fetch news titles from rss feeds"
 task :fetch_news => :environment do
-  Post.delete_all
-  Keyword.delete_all
-
 
   sleep_seconds = 1_200
 
