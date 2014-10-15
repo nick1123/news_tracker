@@ -3,6 +3,7 @@ class CreatePosts < ActiveRecord::Migration
     create_table :posts do |t|
       t.string :url
       t.string :title
+      t.string :host
       t.date :on_date
 
       t.timestamps

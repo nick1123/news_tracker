@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20141015021304) do
   create_table "posts", force: true do |t|
     t.string   "url"
     t.string   "title"
+    t.string   "host"
     t.date     "on_date"
     t.datetime "created_at"
     t.datetime "updated_at"
