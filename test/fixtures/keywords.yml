@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  phrase: MyString
+  occurences: 1
+  on_date: 2014-10-14
+  word_count: 1
+
+two:
+  phrase: MyString
+  occurences: 1
+  on_date: 2014-10-14
+  word_count: 1
