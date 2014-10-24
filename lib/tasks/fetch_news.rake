@@ -3,30 +3,21 @@ require 'feedjira'
 
 desc "Fetch news titles from rss feeds"
 task :fetch_news => :environment do
-
-  sleep_seconds = 1_200
-
-  while true do
-    urls = IO.readlines("lib/flat_files/rss_feeds.txt")
-    urls.shuffle.each do |url|
-      begin
-        next if url.blank?
-        url.strip!
-        puts "Processing feed: #{url}"
-        process_rss_feed(url)
-        puts ''
-     rescue Exception => e
-        puts e
-        puts e.backtrace
-      end
+  urls = IO.readlines("lib/flat_files/rss_feeds.txt")
+  urls.shuffle.each do |url|
+    begin
+      next if url.blank?
+      url.strip!
+      puts "Processing feed: #{url}"
+      process_rss_feed(url)
+      puts ''
+   rescue Exception => e
+      puts e
+      puts e.backtrace
     end
-
-puts ""
-
-    Keyword.order("occurences DESC").limit(10).each {|k| puts "#{k.occurences}\t#{k.phrase}"}
-    puts "Sleeping for #{sleep_seconds} seconds"
-    sleep(sleep_seconds)
   end
+
+  Keyword.order("occurences DESC").limit(10).each {|k| puts "#{k.occurences}\t#{k.phrase}"}
 end
 
 def process_rss_feed(url)
