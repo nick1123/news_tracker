@@ -2,10 +2,9 @@ development:
   adapter: postgresql
   database: news_tracker_development
 
-test:
+default: &default
   adapter: postgresql
-  database: news_tracker_test
-
-production:
-  adapter: postgresql
-  database: news_tracker_production
+  encoding: unicode
+  # For details on connection pooling, see rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: 5
