@@ -1,6 +1,11 @@
 require 'uri'
 require 'feedjira'
 
+desc "prune old keywords"
+task :prune_old_keywords => :environment do
+  Keyword.where("on_date < ?", Date.current).where("occurences <= 2").delete_all
+end
+
 desc "Fetch news titles from rss feeds"
 task :fetch_news => :environment do
   urls = IO.readlines("lib/flat_files/rss_feeds.txt")
@@ -17,7 +22,7 @@ task :fetch_news => :environment do
     end
   end
 
-  Keyword.order("occurences DESC").limit(10).each {|k| puts "#{k.occurences}\t#{k.phrase}"}
+  Keyword.where(on_date: Date.current).order("occurences DESC").limit(10).each {|k| puts "#{k.occurences}\t#{k.phrase}"}
 end
 
 def process_rss_feed(url)
